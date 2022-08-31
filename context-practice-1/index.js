@@ -1,5 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
+import UserNameContext from "./userNameContext"
 
 import App from "./App"
 
@@ -9,4 +10,8 @@ import App from "./App"
  * Use the static class property `contextType` on any components that need to consume context.
  */
 
-ReactDOM.render(<App />, document.getElementById("root"))
+ReactDOM.render(
+  <UserNameContext.Provider value={ 'George' }>
+    <App />
+  </UserNameContext.Provider>,
+  document.getElementById("root"))
