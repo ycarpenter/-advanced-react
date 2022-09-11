@@ -505,13 +505,46 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+  * Challenge: build the basic structure of our game
+  * 
+  * 1. <h1> title at the top
+  * 2. <textarea> for the box to type in 
+  *      (tip: React normalizes <textarea /> to be more like <input />, 
+  *      so it can be used as a self-closing element and uses the `value` property
+  *      to set its contents)
+  * 3. <h4> ti display the amount of time remaining
+  * 4. <button> to start the game
+  * 5. Another <h1> to display the word count
+  */
+
 function App() {
+  /**
+  * Challenge: Using hooks, track the state of the text in the textarea on every keystroke
+  * To verify it's working, you could just console.log the state on every change
+  * 
+  * https://scrimba.com/p/p7P5Hd/cW8Jdfy
+  */
+
+  var _useState = (0, _react.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      text = _useState2[0],
+      setText = _useState2[1];
+
+  var handleChange = function handleChange(event) {
+    var value = event.target.value;
+
+    setText(value);
+  };
+
   return _react2.default.createElement(
     "div",
     null,
@@ -520,11 +553,14 @@ function App() {
       null,
       "How fast do you type?"
     ),
-    _react2.default.createElement("textarea", null),
+    _react2.default.createElement("textarea", {
+      value: text,
+      onChange: handleChange
+    }),
     _react2.default.createElement(
       "h4",
       null,
-      "Time reminaing: ???"
+      "Time remaining: "
     ),
     _react2.default.createElement(
       "button",
@@ -534,7 +570,7 @@ function App() {
     _react2.default.createElement(
       "h1",
       null,
-      "Word count: ???"
+      "Word count: "
     )
   );
 }
