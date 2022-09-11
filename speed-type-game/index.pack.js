@@ -539,38 +539,55 @@ function App() {
       text = _useState2[0],
       setText = _useState2[1];
 
+  var _useState3 = (0, _react.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      count = _useState4[0],
+      setCount = _useState4[1];
+
   var handleChange = function handleChange(event) {
     var value = event.target.value;
 
     setText(value);
   };
 
+  var calculateWord = function calculateWord(value) {
+    var wordArr = value.trim().split(' ');
+    setCount(wordArr.filter(function (word) {
+      return word !== '';
+    }).length);
+  };
+
   return _react2.default.createElement(
-    "div",
+    'div',
     null,
     _react2.default.createElement(
-      "h1",
+      'h1',
       null,
-      "How fast do you type?"
+      'How fast do you type?'
     ),
-    _react2.default.createElement("textarea", {
-      value: text,
-      onChange: handleChange
+    _react2.default.createElement('textarea', {
+      onChange: handleChange,
+      value: text
     }),
     _react2.default.createElement(
-      "h4",
+      'h4',
       null,
-      "Time remaining: "
+      'Time remaining: ???'
     ),
     _react2.default.createElement(
-      "button",
-      null,
-      "Start"
+      'button',
+      {
+        onClick: function onClick() {
+          return calculateWord(text);
+        }
+      },
+      'Start'
     ),
     _react2.default.createElement(
-      "h1",
+      'h1',
       null,
-      "Word count: "
+      'Word count: ',
+      count
     )
   );
 }

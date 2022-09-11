@@ -22,28 +22,32 @@ function App() {
  */
 
   const [text, setText] = useState('')
+  const [count, setCount] = useState(0)
 
   const handleChange = (event) => {
     const { value } = event.target
     setText(value)
   }
 
-
+  const calculateWord = (value) => {
+    const wordArr = value.trim().split(' ')
+    setCount(wordArr.filter(word => word !== '').length)
+  }
 
   return (
     <div>
       <h1>How fast do you type?</h1>
       <textarea
-        value={ text }
         onChange={ handleChange }
+        value={ text }
       />
-      <h4>Time remaining: </h4>
-      <button>Start</button>
-      <h1>Word count: </h1>
+      <h4>Time remaining: ???</h4>
+      <button
+        onClick={ () => calculateWord(text) }
+      >Start</button>
+      <h1>Word count: { count }</h1>
     </div>
   )
 }
 
 export default App
-
-
