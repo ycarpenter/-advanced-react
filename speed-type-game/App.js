@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 /**
   * Challenge: build the basic structure of our game
@@ -23,6 +23,7 @@ function App() {
 
   const [text, setText] = useState('')
   const [count, setCount] = useState(0)
+  const [timeRemaining, setTimeRemaining] = useState(5);
 
   const handleChange = (event) => {
     const { value } = event.target
@@ -34,6 +35,13 @@ function App() {
     setCount(wordArr.filter(word => word !== '').length)
   }
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      timeRemaining > 0 ? setTimeRemaining(prevState => prevState - 1) : 0
+    }, 1000)
+    return () => clearTimeout(timer)
+  }, [timeRemaining])
+
   return (
     <div>
       <h1>How fast do you type?</h1>
@@ -41,7 +49,7 @@ function App() {
         onChange={ handleChange }
         value={ text }
       />
-      <h4>Time remaining: ???</h4>
+      <h4>Time remaining: { timeRemaining }</h4>
       <button
         onClick={ () => calculateWord(text) }
       >Start</button>

@@ -544,6 +544,11 @@ function App() {
       count = _useState4[0],
       setCount = _useState4[1];
 
+  var _useState5 = (0, _react.useState)(5),
+      _useState6 = _slicedToArray(_useState5, 2),
+      timeRemaining = _useState6[0],
+      setTimeRemaining = _useState6[1];
+
   var handleChange = function handleChange(event) {
     var value = event.target.value;
 
@@ -556,6 +561,17 @@ function App() {
       return word !== '';
     }).length);
   };
+
+  (0, _react.useEffect)(function () {
+    var timer = setTimeout(function () {
+      timeRemaining > 0 ? setTimeRemaining(function (prevState) {
+        return prevState - 1;
+      }) : 0;
+    }, 1000);
+    return function () {
+      return clearTimeout(timer);
+    };
+  }, []);
 
   return _react2.default.createElement(
     'div',
@@ -572,7 +588,8 @@ function App() {
     _react2.default.createElement(
       'h4',
       null,
-      'Time remaining: ???'
+      'Time remaining: ',
+      timeRemaining
     ),
     _react2.default.createElement(
       'button',
