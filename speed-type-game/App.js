@@ -21,9 +21,10 @@ function App() {
  * https://scrimba.com/p/p7P5Hd/cW8Jdfy
  */
 
-  const [text, setText] = useState('')
-  const [count, setCount] = useState(0)
+  const [text, setText] = useState('');
+  const [count, setCount] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(5);
+  const [start, setStart] = useState(false);
 
   const handleChange = (event) => {
     const { value } = event.target
@@ -35,9 +36,15 @@ function App() {
     setCount(wordArr.filter(word => word !== '').length)
   }
 
+  function handleClick(text) {
+    calculateWord(text)
+    setTimeRemaining(prevState => prevState - 1)
+    setStart(prevState => !prevState);
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      timeRemaining > 0 ? setTimeRemaining(prevState => prevState - 1) : 0
+      (start && timeRemaining > 0) ? setTimeRemaining(prevState => prevState - 1) : 0
     }, 1000)
     return () => clearTimeout(timer)
   }, [timeRemaining])
